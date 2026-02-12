@@ -8,7 +8,7 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Style Standardizer" />
   <Description DefaultValue="Standardize fonts based on size ranges."/>
-  <IconUrl DefaultValue="https://yonz2.github.io/ppt-formatter/icon-32.png" />
+  <IconUrl DefaultValue="https://img.icons8.com/color/32/magic-wand.png" />
   
   <Hosts>
     <Host Name="PowerPoint" />
