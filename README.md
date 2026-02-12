@@ -1,7 +1,3 @@
-To keep your repository professional and easy to manage, here is a concise `README.md`. It includes the necessary setup for GitHub Pages and the specific installation path for macOS.
-
----
-
 # PowerPoint Style Standardizer Add-in
 
 A professional Office.js Task Pane add-in designed to scan PowerPoint presentations and apply standardized formatting (font family and sizes) based on customizable thresholds for Headlines, Sub-Headlines, and Body text.
