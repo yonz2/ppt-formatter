@@ -2,9 +2,13 @@
 
 Office.onReady((info) => {
     if (info.host === Office.HostType.PowerPoint) {
-        document.getElementById("apply-btn").onclick = runStandardization;
+        console.log("PowerPoint Add-in loaded");
+
+        // UI initialisieren
+        document.getElementById("status").textContent = "Add-in bereit";
     }
 });
+
 
 async function runStandardization() {
     const status = document.getElementById("status");

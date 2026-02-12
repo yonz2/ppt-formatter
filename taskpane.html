@@ -43,9 +43,16 @@
         <span class="ms-Button-label">Apply Standardization</span>
     </button>
 
-    <div id="status" class="footer">Ready</div>
+    <div id="status" class="footer">Lade Add-in…</div>
 
-    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var s = document.createElement("script");
+    s.src = "https://appsforoffice.microsoft.com/lib/1/hosted/office.js";
+    document.body.appendChild(s);
+  });
+</script>
+
     <script type="text/javascript" src="taskpane.js"></script>
 </body>
 </html>

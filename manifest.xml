@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-           xsi:type="TaskPaneApp">
+<OfficeApp
+    xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:type="TaskPaneApp">
+
   <Id>6b3254bc-4831-4831-4831-1e2345678901</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>My Company</ProviderName>
+  <ProviderName>Agenco e.K.</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Style Standardizer" />
+
+  <DisplayName DefaultValue="Style Standardizer"/>
   <Description DefaultValue="Standardize fonts based on size ranges."/>
-  <IconUrl DefaultValue="https://img.icons8.com/color/32/magic-wand.png" />
-  
+  <IconUrl DefaultValue="https://img.icons8.com/color/32/magic-wand.png"/>
+
+  <!-- REQUIRED: Support URL -->
+  <SupportUrl DefaultValue="https://yonz2.github.io/ppt-formatter/"/>
+
+  <!-- REQUIRED: Modern Office.js API requirement -->
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="PowerPointApi" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+
   <Hosts>
-    <Host Name="PowerPoint" />
+    <Host Name="PowerPoint"/>
   </Hosts>
-  
+
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://yonz2.github.io/ppt-formatter/taskpane.html" />
+    <SourceLocation DefaultValue="https://yonz2.github.io/ppt-formatter/taskpane.html"/>
   </DefaultSettings>
-  
+
   <Permissions>ReadWriteDocument</Permissions>
+
 </OfficeApp>
