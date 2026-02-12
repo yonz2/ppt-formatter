@@ -34,7 +34,3 @@ To install the add-in on an Apple Silicon Mac without using the Office Store:
 ## ⚠️ Security Note
 
 Since this is hosted on GitHub Pages, the first time you run it, you may need to open the URL in **Safari** and "Trust" the site if your organization has strict security certificates.
-
----
-
-**Would you like the full `taskpane.html` code with the UI elements next?**
