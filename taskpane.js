@@ -8,7 +8,7 @@ Office.onReady((info) => {
 
 async function runStandardization() {
     const status = document.getElementById("status");
-    status.innerText = "Processing slides...";
+    status.innerText = "Scanning document...";
 
     try {
         await PowerPoint.run(async (context) => {
@@ -16,49 +16,51 @@ async function runStandardization() {
             const hMin = parseFloat(document.getElementById("h-min").value);
             const sMin = parseFloat(document.getElementById("s-min").value);
 
-            const presentation = context.presentation;
-            const slides = presentation.slides;
+            const slides = context.presentation.slides;
             slides.load("items");
             await context.sync();
 
             let totalUpdated = 0;
 
-            for (let i = 0; i < slides.items.length; i++) {
-                const slide = slides.items[i];
+            for (let slide of slides.items) {
                 const shapes = slide.shapes;
                 shapes.load("items");
                 await context.sync();
 
-                for (let j = 0; j < shapes.items.length; j++) {
-                    const shape = shapes.items[j];
-                    
-                    // We load hasTextFrame to verify if we can manipulate text
-                    shape.load("hasTextFrame");
-                    await context.sync();
-
-                    if (shape.hasTextFrame) {
-                        const textRange = shape.textFrame.textRange;
-                        textRange.load("font/size, font/name");
-                        await context.sync();
-
-                        // Logic: Compare current size to UI thresholds
-                        const currentSize = textRange.font.size;
-
-                        if (currentSize >= hMin || (currentSize >= sMin && currentSize < hMin) || currentSize < sMin) {
-                            // In this implementation, we apply the chosen font to all 
-                            // but you can add specific size overrides here if desired.
-                            textRange.font.name = targetFont;
-                            totalUpdated++;
-                        }
-                    }
-                }
+                // Process shapes using a recursive helper to handle Groups
+                totalUpdated += await processShapesCollection(shapes.items, targetFont, hMin, sMin, context);
             }
 
             await context.sync();
-            status.innerText = `Success! Updated ${totalUpdated} text blocks.`;
+            status.innerText = `Done! Processed ${totalUpdated} text blocks.`;
         });
     } catch (error) {
         status.innerText = "Error: " + error.message;
-        console.error(error);
     }
+}
+
+async function processShapesCollection(shapes, targetFont, hMin, sMin, context) {
+    let count = 0;
+    for (let shape of shapes) {
+        shape.load("hasTextFrame, type");
+        await context.sync();
+
+        if (shape.type === "Group") {
+            // Drill down into groups
+            const groupShapes = shape.groupItems;
+            groupShapes.load("items");
+            await context.sync();
+            count += await processShapesCollection(groupShapes.items, targetFont, hMin, sMin, context);
+        } else if (shape.hasTextFrame) {
+            const textRange = shape.textFrame.textRange;
+            textRange.load("font/size");
+            await context.sync();
+
+            // Apply font change to everything
+            // Note: You can add specific 'textRange.font.size = X' logic here if needed
+            textRange.font.name = targetFont;
+            count++;
+        }
+    }
+    return count;
 }
